@@ -1,15 +1,14 @@
 brax==0.10.3
 colorama
-distrax
-flashbax~=0.1.0
-flax>=0.8.1,<0.10.4
+distrax==0.1.5
+flashbax==0.1.0
+flax==0.8.5
 gigastep @ git+https://github.com/mlech26l/gigastep
 gymnasium==1.0.0
 hydra-core==1.3.2
 id-marl-eval @ git+https://github.com/instadeepai/marl-eval
 jax==0.4.30
 jaxlib==0.4.30
-jaxmarl @ git+https://github.com/RuanJohn/JaxMARL@unpin-jax  # This only unpins the version of Jax.
 jumanji>= 1.1.0
 lbforaging
 matrax>= 0.0.5
@@ -17,8 +16,8 @@ mujoco==3.1.3
 mujoco-mjx==3.1.3
 neptune
 numpy==1.26.4
-omegaconf
-optax
+omegaconf>=2.3.0
+optax==0.2.4
 protobuf~=3.20
 rware
 scipy==1.12.0
@@ -26,3 +25,18 @@ smaclite @ git+https://github.com/uoe-agents/smaclite.git
 tensorboard_logger
 tensorflow_probability
 type_enforced # needed because gigastep is missing this dependency
+
+# JaxMARL (unique to this repo)
+safetensors
+chex==0.1.88
+matplotlib
+pillow
+gymnax==0.0.6
+wandb
+pettingzoo>=1.24.3
+tqdm>=4.66.0
+
+# imp-act (unique to this repo)
+igraph>=0.11.3
+pyyaml>=6.0.1
+networkx>=3.2.1
