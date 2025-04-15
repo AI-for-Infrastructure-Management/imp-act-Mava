@@ -5,11 +5,12 @@ flashbax==0.1.0
 flax==0.8.5
 gigastep @ git+https://github.com/mlech26l/gigastep
 gymnasium==1.0.0
+gymnax==0.0.6
 hydra-core==1.3.2
 id-marl-eval @ git+https://github.com/instadeepai/marl-eval
 jax==0.4.30
 jaxlib==0.4.30
-jumanji>= 1.1.0
+jumanji>=1.1.0
 lbforaging
 matrax>= 0.0.5
 mujoco==3.1.3
