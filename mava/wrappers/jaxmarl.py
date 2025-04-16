@@ -29,6 +29,7 @@ from jaxmarl.environments import spaces as jaxmarl_spaces
 from jaxmarl.environments.mabrax import MABraxEnv
 from jaxmarl.environments.mpe.simple_spread import SimpleSpreadMPE
 from jaxmarl.environments.multi_agent_env import MultiAgentEnv
+from jaxmarl.environments.roadenv_wrapper import RoadEnvironment_Wrapper
 from jumanji import specs
 from jumanji.types import StepType, TimeStep, restart
 from jumanji.wrappers import Wrapper
@@ -445,3 +446,40 @@ class MPEWrapper(JaxMarlWrapper):
         """Get global state from observation and copy it for each agent."""
         global_state = jnp.concatenate([obs[agent_id] for agent_id in obs])
         return jnp.tile(global_state, (self.num_agents, 1))
+
+
+class RoadEnvWrapper(JaxMarlWrapper):
+    def __init__(
+        self,
+        env: RoadEnvironment_Wrapper,  # JaxMARL env
+        has_global_state: bool = True,
+    ):
+        super().__init__(env, has_global_state, env.env.max_timesteps)
+        self._env: RoadEnvironment_Wrapper
+
+    def action_mask(self, wrapped_env_state: Any) -> Array:
+        """Get action mask for each agent."""
+        # all actions are always available for all agents
+        return jnp.ones((self.num_agents, self.action_dim), dtype=bool)
+
+    def get_global_state(self, wrapped_env_state: Any, obs: Dict[str, Array]) -> Array:
+        """
+        Get global state from observation for each agent.
+
+        wrapped_env_state: road env state
+        """
+        # shape: (num_agents, state_size)
+        return jnp.tile(obs["__all__"], (self.num_agents, 1))
+
+    @cached_property
+    def action_dim(self) -> chex.Array:
+        """Get the actions dim for each agent."""
+        # for RoadEnvironment, this should return 5
+        single_agent_action_space = self._env.action_space(self.agents[0])
+        return single_agent_action_space.n
+
+    @cached_property
+    def state_size(self) -> chex.Array:
+        """Get the state size of the global observation"""
+        # num_agents * num_damage_states + 1 (norm .time) + 1 (norm. budget remaining)
+        return self._env.world_state_size

@@ -5,7 +5,7 @@
 To clone this repository, the JaxMARL repository and the imp-act repository, run:
 ```bash
 git clone https://github.com/AI-for-Infrastructure-Management/imp-act-Mava.git
-cd imp-act-Mava && git checkout imp_act_adaption_2
+cd imp-act-Mava && git checkout imp_act_adaption
 git clone https://github.com/AI-for-Infrastructure-Management/imp-act-JaxMARL.git
 cd imp-act-JaxMARL && git checkout imp_act_adaption && cd ..
 git clone https://github.com/AI-for-Infrastructure-Management/imp-act.git
@@ -70,5 +70,10 @@ poetry install --only-root
 
 To test the installation, run the following command:
 ```bash
+# RobotWarehouse
 python mava/systems/ppo/anakin/rec_mappo.py env=rware env/scenario=tiny-4ag
+
+# RoadEnv
+# map_name: ToyExample-v2 | Cologne-v1 | CologneBonnDusseldorf-v1
+python mava/systems/ppo/anakin/rec_mappo.py env=road_env env.scenario.map_name=ToyExample-v2
 ```

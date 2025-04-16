@@ -55,6 +55,7 @@ from mava.wrappers import (
     RwareWrapper,
     SmacWrapper,
     SmaxWrapper,
+    RoadEnvWrapper,
     UoeWrapper,
     VectorConnectorWrapper,
     async_multiagent_worker,
@@ -74,7 +75,7 @@ _jumanji_registry = {
 
 # Registry mapping environment names directly to the corresponding wrapper classes.
 _matrax_registry = {"Matrax": MatraxWrapper}
-_jaxmarl_registry = {"Smax": SmaxWrapper, "MaBrax": MabraxWrapper, "MPE": MPEWrapper}
+_jaxmarl_registry = {"Smax": SmaxWrapper, "MaBrax": MabraxWrapper, "MPE": MPEWrapper, "Road_Env": RoadEnvWrapper}
 _gigastep_registry = {"Gigastep": GigastepWrapper}
 
 _gym_registry = {
@@ -152,6 +153,8 @@ def make_jaxmarl_env(config: DictConfig, add_global_state: bool = False) -> Tupl
         kwargs["scenario"] = map_name_to_scenario(config.env.scenario.task_name)
     elif "mpe" in config.env.env_name.lower():
         kwargs.update(config.env.scenario.task_config)
+    elif "road_env" in config.env.env_name.lower():
+        kwargs["map_name"] = config.env.scenario.map_name
 
     # Create jaxmarl envs.
     train_env: MarlEnv = _jaxmarl_registry[config.env.env_name](
