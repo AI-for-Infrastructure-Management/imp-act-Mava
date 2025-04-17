@@ -68,12 +68,21 @@ poetry install --only-root
 
 ### 4.Test the installation
 
-To test the installation, run the following command:
+You can test the installation by running any of the following commands,
+
 ```bash
 # RobotWarehouse
 python mava/systems/ppo/anakin/rec_mappo.py env=rware env/scenario=tiny-4ag
 
 # RoadEnv
 # map_name: ToyExample-v2 | Cologne-v1 | CologneBonnDusseldorf-v1
+
+# MAPPO
 python mava/systems/ppo/anakin/rec_mappo.py env=road_env env.scenario.map_name=ToyExample-v2
+
+# QMIX
+python mava/systems/q_learning/anakin/rec_qmix.py env=road_env env.scenario.map_name=ToyExample-v2
+
+# MAT
+python mava/systems/mat/anakin/mat.py env=road_env env.scenario.map_name=ToyExample-v2
 ```
