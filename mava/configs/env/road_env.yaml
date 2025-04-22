@@ -20,3 +20,7 @@ log_win_rate: False
 
 kwargs:
   encoding_type: binary # alternative: one-hot | sinusoidal | none
+  include_extra_observations:
+     segment_lengths: True
+     volumes: True
+     capacity: False
